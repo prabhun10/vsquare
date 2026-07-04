@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>V Square Event Planner | Premium Wedding Decor & Event Planning in Tamilnadu, India</title>
+<meta content="Expert Wedding Decor in Charleston, Event Planner in SC, and Charleston Anniversary Decor. We craft memorable moments with elegance and luxury." name="description"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Playfair+Display:wght@100..900&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#eae7e7",
+                    "tertiary": "#685d4a",
+                    "tertiary-fixed": "#f0e0c8",
+                    "tertiary-fixed-dim": "#d3c5ad",
+                    "on-background": "#1b1c1c",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f6f3f2",
+                    "on-surface-variant": "#4d4635",
+                    "on-primary-container": "#554300",
+                    "tertiary-container": "#bfb19a",
+                    "primary-fixed": "#ffe088",
+                    "surface": "#fcf9f8",
+                    "secondary-fixed-dim": "#cac99f",
+                    "surface-dim": "#dcd9d9",
+                    "outline-variant": "#d0c5af",
+                    "outline": "#7f7663",
+                    "surface-container-highest": "#e4e2e1",
+                    "on-secondary-container": "#666643",
+                    "on-surface": "#1b1c1c",
+                    "secondary": "#60603e",
+                    "on-secondary-fixed": "#1d1d03",
+                    "surface-container": "#f0eded",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "surface-variant": "#e4e2e1",
+                    "surface-bright": "#fcf9f8",
+                    "primary": "#735c00",
+                    "secondary-container": "#e6e5b9",
+                    "on-tertiary-container": "#4e4432",
+                    "on-tertiary-fixed": "#221b0b",
+                    "surface-tint": "#735c00",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed": "#241a00",
+                    "on-primary-fixed-variant": "#574500",
+                    "on-secondary-fixed-variant": "#484828",
+                    "inverse-primary": "#e9c349",
+                    "primary-container": "#d4af37",
+                    "inverse-on-surface": "#f3f0f0",
+                    "background": "#fcf9f8",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#4f4533",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed": "#e6e5b9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section-padding-lg": "120px",
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "accent-script": ["EB Garamond"],
+                    "body-md": ["Montserrat"],
+                    "headline-md": ["Playfair Display"],
+                    "label-caps": ["Montserrat"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "display-lg": ["Playfair Display"],
+                    "body-lg": ["Montserrat"]
+            },
+            "fontSize": {
+                    "accent-script": ["24px", {"lineHeight": "32px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "48px", "fontWeight": "700"}],
+                    "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .ornamental-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .ornamental-divider::before,
+        .ornamental-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #D4AF37, transparent);
+        }
+        .ornamental-diamond {
+            width: 10px;
+            height: 10px;
+            background-color: #D4AF37;
+            transform: rotate(45deg);
+            margin: 0 1.5rem;
+        }
+
+        .gold-button {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gold-button:active {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .photo-frame {
+            padding: 12px;
+            background-color: #fcf9f8;
+            box-shadow: 0 4px 20px rgba(44, 44, 44, 0.05);
+            border: 1px solid #d0c5af;
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+		
+		/* Floating Button Styles */
+.whatsapp-float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: #25d366;
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.whatsapp-float:hover {
+    background-color: #20ba5a;
+    transform: scale(1.1);
+    color: #fff;
+}
+
+/* Icon alignment */
+.whatsapp-icon {
+    margin-top: 0px;
+}
+
+/* Responsiveness: Adjust for mobile screens */
+@media screen and (max-width: 768px) {
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 25px;
+    }
+}
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/90 dark:bg-on-background/90 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+<div class="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
+<a class="font-headline-md text-headline-md text-primary dark:text-primary-fixed italic tracking-tight" href="#">
+<img src="img/logo.png" width="50" />
+ </a>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="font-label-caps text-label-caps text-primary dark:text-primary-fixed border-b-2 border-primary hover:text-primary transition-colors duration-300" href="#home">Home</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors duration-300" href="#about">About</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors duration-300" href="#services">Services</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors duration-300" href="#gallery">Gallery</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors duration-300" href="#contact">Contact</a>
+</nav>
+<div class="flex items-center gap-4">
+<a class="gold-button px-6 py-2 rounded-DEFAULT text-white font-label-caps text-label-caps flex items-center gap-2" href="tel:7092561020">
+<span class="material-symbols-outlined text-[18px]">call</span>
+                    Call Now
+                </a>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" id="home">
+<div class="absolute inset-0 z-0">
+<div class="w-full h-full bg-cover bg-center" data-alt="A luxurious high-end outdoor wedding reception in a historic Charleston estate during golden hour. The scene features long wooden tables adorned with white linens, gold-rimmed glassware, and sprawling floral centerpieces of white roses and eucalyptus. Soft, warm sunlight filters through Spanish moss-draped oak trees, creating a romantic and ethereal atmosphere. The overall aesthetic is one of Southern hospitality and timeless elegance." style="background-image: url('img/banner.png')"></div>
+<div class="absolute inset-0 bg-black/30"></div>
+</div>
+<div class="relative z-10 text-center px-gutter max-w-4xl mx-auto">
+<span class="font-accent-script text-accent-script text-primary-fixed italic mb-4 block">Best Event Planner with User Friendly</span>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-white mb-8">Plan Your Dream Events With Us</h1>
+ 
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<a class="gold-button px-10 py-4 rounded-DEFAULT text-white font-label-caps text-label-caps text-lg shadow-xl hover:scale-105 transition-transform" href="tel:7092561020">Book a Consultation</a>
+<a class="px-10 py-4 rounded-DEFAULT bg-white/10 backdrop-blur-md border border-white/30 text-white font-label-caps text-label-caps text-lg hover:bg-white/20 transition-all" href="#gallery">View Our Work</a>
+</div>
+</div>
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+<span class="material-symbols-outlined text-white text-3xl">expand_more</span>
+</div>
+</section>
+<!-- About Section -->
+<section class="py-section-padding-lg bg-surface" id="about">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="ornamental-divider">
+<div class="ornamental-diamond"></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-16 items-center">
+<div class="order-2 lg:order-1">
+<div class="photo-frame inline-block transform -rotate-2">
+<div class="w-full  bg-cover bg-center"   >
+<img src="img/side1.jpg" >
+</div>
+
+
+</div>
+</div>
+<div class="order-2 lg:order-2">
+<span class="font-label-caps text-label-caps text-primary mb-2 block">Our Story</span>
+<h2 class="font-headline-md text-headline-md mb-6">Memorable Moments Crafted With Elegance</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6 leading-relaxed">
+                            Deep in the heart of the Lowcountry, Enchanted Events was born from a passion for storytelling through design. We specialize in creating high-society celebrations that honor the timeless charm of Wedding Events while embracing modern sophistication.
+                        </p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8">
+                            Every event we plan is a bespoke masterpiece. From intimate Charleston Anniversary Decor to grand corporate galas, our team ensures that every detail—from the texture of the linens to the warmth of the lighting—reflects your unique vision and the effortless poise of Southern luxury.
+                        </p>
+<div class="grid grid-cols-2 gap-8 py-6 border-y border-outline-variant/30">
+<div>
+<h4 class="font-display-lg-mobile text-primary text-[40px] leading-none mb-2">5+</h4>
+<p class="font-label-caps text-label-caps">Years of Excellence</p>
+</div>
+<div>
+<h4 class="font-display-lg-mobile text-primary text-[40px] leading-none mb-2">50+</h4>
+<p class="font-label-caps text-label-caps">Events Planned</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section class="py-section-padding-lg bg-surface-container-low" id="services">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="ornamental-divider">
+<div class="ornamental-diamond"></div>
+</div>
+<div class="text-center mb-16">
+<span class="font-label-caps text-label-caps text-primary mb-2 block">What We Offer</span>
+<h2 class="font-headline-md text-headline-md">Bespoke Planning Services</h2>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Service 1 -->
+<div class="bg-surface p-8 border border-outline-variant group hover:border-primary transition-all duration-500 shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">favorite</span>
+<h3 class="font-headline-md text-2xl mb-4">Theme Design</h3>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Customized Event Concepts
+</li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Elegant Stage Setup
+</li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Floral Arrangements
+</li>
+
+ 
+</ul>
+</div>
+<!-- Service 2 -->
+<div class="bg-surface p-8 border border-outline-variant group hover:border-primary transition-all duration-500 shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">business_center</span>
+<h3 class="font-headline-md text-2xl mb-4">Event Planning</h3>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Budget Planning
+                            </li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Complete Event Management
+                            </li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Vendor Coordination
+                            </li>
+							<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Timeline Planning
+                            </li>
+							
+							
+							
+</ul>
+</div>
+<!-- Service 3 -->
+<div class="bg-surface p-8 border border-outline-variant group hover:border-primary transition-all duration-500 shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">celebration</span>
+<h3 class="font-headline-md text-2xl mb-4">Catering & Decor</h3>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Catering Services
+                            </li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Custom Decor
+                            </li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Studio Setup
+                            </li>
+							<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Lights & Visual Effects
+                            </li>
+</ul>
+</div>
+<!-- Service 4 -->
+<div class="bg-surface p-8 border border-outline-variant group hover:border-primary transition-all duration-500 shadow-sm">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">cake</span>
+<h3 class="font-headline-md text-2xl mb-4"> Events We Cater</h3>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Weddings & Receptions
+                            </li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Birthday Parties
+                            </li>
+<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Corporate Events
+                            </li>
+							<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Baby Showers
+                            </li>
+							<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Holiday Celebrations
+                            </li>
+							<li class="flex items-center gap-2 font-body-md text-on-surface-variant">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>Anniversary Events
+                            </li>
+							
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfolio Gallery -->
+<section class="py-section-padding-lg bg-surface" id="gallery">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="ornamental-divider">
+<div class="ornamental-diamond"></div>
+</div>
+<div class="text-center mb-16">
+<span class="font-label-caps text-label-caps text-primary mb-2 block">Our Portfolio</span>
+<h2 class="font-headline-md text-headline-md">Capturing Enchanted Moments</h2>
+</div>
+<div class="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+<!-- Gallery Item 1 -->
+<div class="photo-frame break-inside-avoid">
+<div class="w-full aspect-[3/4] bg-cover bg-center" data-alt="A close-up shot of an elegant Charleston wedding table setting featuring gold cutlery, a silk champagne napkin, and a custom letterpressed place card on a textured paper. The lighting is soft and natural, emphasizing the fine details and luxurious materials of high-society event decor." style="background-image: url('img/side2.jpg')"></div>
+</div>
+<!-- Gallery Item 2 -->
+<div class="photo-frame break-inside-avoid">
+<div class="w-full aspect-[4/3] bg-cover bg-center" data-alt="A grand ballroom setup for a corporate gala in Charleston. The space features dramatic luxury lighting with gold and blue hues, crystal chandeliers reflecting off polished floors, and large floral installations on marble pedestals. The mood is sophisticated and professionally curated." style="background-image: url('img/side3.jpg')"></div>
+</div>
+<!-- Gallery Item 3 -->
+<div class="photo-frame break-inside-avoid">
+<div class="w-full aspect-[3/4] bg-cover bg-center" data-alt="A romantic marriage proposal setup on a Charleston pier at sunset. A path of candles in glass lanterns leads to a floral arch made of cream roses. The background shows the iconic Ravenel Bridge under a pink and orange sky, creating a magical, intimate atmosphere." style="background-image: url('img/side3.jpg')"></div>
+</div>
+<!-- Gallery Item 4 -->
+<div class="photo-frame break-inside-avoid">
+<div class="w-full aspect-square bg-cover bg-center" data-alt="A vibrant outdoor garden birthday party in Charleston with an elegant high-tea theme. Floral-patterned china sits on white lace tablecloths, surrounded by lush green hydrangeas and elegant vintage garden chairs. The lighting is bright and cheerful." style="background-image: url('img/side4.jpg')"></div>
+</div>
+<!-- Gallery Item 5 -->
+<div class="photo-frame break-inside-avoid">
+<div class="w-full aspect-[4/5] bg-cover bg-center" data-alt="Detailed view of a luxury wedding cake in Charleston, featuring four tiers of white fondant with delicate edible gold leaf accents and handmade sugar flowers. The cake is displayed on an antique gold stand against a background of soft-focus greenery."
+ style="background-image: url('img/side5.jpg')" ></div>
+</div>
+<!-- Gallery Item 6 -->
+<div class="photo-frame break-inside-avoid">
+<div class="w-full aspect-[3/4] bg-cover bg-center" data-alt="A wide shot of a wedding reception under a clear-top tent in a Charleston garden at night. Thousands of fairy lights and hanging Edison bulbs create a starry sky effect over the dancing guests. The scene is full of joy and sophisticated celebratory energy." 
+style="background-image: url('img/side6.jpg')"></div>
+</div>
+<!-- Remaining placeholders for a total of 12 images would follow the same pattern... -->
+<!-- Simulating the grid density with diverse aspects -->
+<div class="photo-frame break-inside-avoid"><div class="w-full aspect-[4/3] bg-cover bg-center" data-alt="A luxury anniversary dinner set for two on a balcony overlooking the Charleston harbor. Fine crystal glasses reflect the flickering candlelight, and a small, delicate arrangement of peonies sits in the center of the table. The evening air feels warm and private."
+ style="background-image: url('img/side7.jpg')" ></div></div>
+<div class="photo-frame break-inside-avoid"><div class="w-full aspect-square bg-cover bg-center" 
+data-alt="A high-fashion bridal makeup station in a historic Charleston dressing room. Soft light hits professional brushes and luxury cosmetics laid out on a marble vanity next to a bouquet of white anemones." 
+ style="background-image: url('img/side8.jpg')"
+></div></div>
+<div class="photo-frame break-inside-avoid"><div class="w-full aspect-[3/4] bg-cover bg-center" data-alt="A vintage Rolls Royce decorated with a 'Just Married' sign and a garland of fresh florals, parked in front of a historic Charleston church with cobblestone streets. The aesthetic is timeless Southern wedding tradition." 
+ style="background-image: url('img/side9.jpg')"
+></div></div>
+<div class="photo-frame break-inside-avoid"><div class="w-full aspect-square bg-cover bg-center" data-alt="An artistic shot of a champagne tower at a luxury event in Charleston, with golden liquid pouring into delicate crystal coupes. Bubbles and reflections catch the warm ambient lighting of a celebratory ballroom." 
+ style="background-image: url('img/side10.jpg')"
+></div></div>
+<div class="photo-frame break-inside-avoid"><div class="w-full aspect-[4/3] bg-cover bg-center" data-alt="A row of impeccably dressed waitstaff carrying silver trays with artistic hors d'oeuvres through a high-end corporate gala. The background is a blur of elegant guests and gold-toned event decor."
+ style="background-image: url('img/side11.jpg')" ></div></div>
+<div class="photo-frame break-inside-avoid"><div class="w-full aspect-[3/4] bg-cover bg-center" data-alt="A beautifully curated lounge area at a wedding reception, featuring velvet sofas in dusty rose, gold coffee tables, and large tropical palm arrangements. The setting encourages relaxed but elegant conversation." 
+ style="background-image: url('img/side13.jpg')"></div></div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-section-padding-lg bg-surface-container-high relative overflow-hidden">
+<div class="max-w-container-max mx-auto px-gutter relative z-10">
+<div class="ornamental-divider">
+<div class="ornamental-diamond"></div>
+</div>
+<div class="grid md:grid-cols-2 gap-12">
+<div class="bg-surface p-12 border border-outline-variant relative">
+<span class="material-symbols-outlined text-primary-container text-6xl absolute -top-6 -left-6 bg-surface p-2">format_quote</span>
+<p class="font-accent-script text-2xl italic mb-8 text-on-surface">"Our wedding was a dream beyond words. The attention to detail in the decor transformed the venue into a fairytale. Enchanted Events truly is the best Wedding Decor team in Charleston."</p>
+<div>
+<p class="font-label-caps text-label-caps text-primary">Prabhu</p>
+<p class="text-sm text-on-surface-variant italic">Wedding at Salem</p>
+</div>
+</div>
+<div class="bg-surface p-12 border border-outline-variant relative">
+<span class="material-symbols-outlined text-primary-container text-6xl absolute -top-6 -left-6 bg-surface p-2">format_quote</span>
+<p class="font-accent-script text-2xl italic mb-8 text-on-surface">"Executing a gala for 500 executives requires precision and poise. Enchanted Events handled our corporate tech launch with absolute professionalism and a stunning visual flair."</p>
+<div>
+<p class="font-label-caps text-label-caps text-primary">Corporate Tech Solutions</p>
+<p class="text-sm text-on-surface-variant italic">Anniversery Events in Trichy</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="py-section-padding-lg bg-surface" id="contact">
+<div class="max-w-container-max mx-auto px-gutter">
+<div class="ornamental-divider">
+<div class="ornamental-diamond"></div>
+</div>
+<div class="grid lg:grid-cols-2 gap-16">
+<div>
+<span class="font-label-caps text-label-caps text-primary mb-2 block">Connect With Us</span>
+<h2 class="font-headline-md text-headline-md mb-6">Let's Create Magic Together</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-10">Ready to start planning? Whether it's a grand wedding or an intimate anniversary surprise, we're here to bring your vision to life.</p>
+<div class="space-y-6 mb-10">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<p class="font-body-md">4/102 B South Street, Udumalpettai, Tiruppur. </p>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">Mail</span>
+<p class="font-body-md">vsquareevents02.@gmail.com</p>
+ 
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary">phone</span>
+<p class="font-body-md">+91 70925 61020</p>
+<p class="font-body-md">+91 99522 61073</p>
+</div>
+</div>
+<div class="mb-10 rounded-xl overflow-hidden shadow-sm border border-outline-variant h-[300px]">
+<!-- Map Placeholder -->
+<div class="w-full h-full bg-surface-container" data-location="Charleston, South Carolina" style="">
+<div class="w-full h-full flex items-center justify-center text-on-surface-variant font-label-caps" id="osm-map">
+ 
+                                </div>
+</div>
+</div>
+<a class="flex items-center justify-center gap-3 bg-[#25D366] text-white font-label-caps py-4 rounded-DEFAULT hover:opacity-90 transition-opacity" href="https://wa.me/7092561020" target="_blank">
+<span class="material-symbols-outlined">chat</span>
+                            Message on WhatsApp
+                        </a>
+</div>
+ 
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-on-background w-full py-section-padding-lg border-t border-outline-variant">
+<div class="flex flex-col md:flex-row justify-between items-center px-gutter max-w-container-max mx-auto gap-12">
+<div class="text-center md:text-left">
+<a class="font-headline-md text-headline-md text-primary block mb-4" href="#">Enchanted Events</a>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">Premium Event Planning and Wedding Decor in Tiruppr, SC. We turn your vision into an elegant reality.</p>
+</div>
+<div class="flex flex-col items-center md:items-end gap-6">
+ 
+<div class="flex gap-6">
+<a class="w-10 h-10 flex items-center justify-center rounded-full border border-outline-variant text-primary hover:bg-primary-container hover:text-white transition-all" href="https://www.instagram.com/vsquare.event/"><span class="material-symbols-outlined">photo_camera</span></a>
+ </div>
+<p class="font-label-caps text-label-caps text-on-surface-variant/70 text-xs">© 2026 V Square  Events Tiruppur. All Rights Reserved. Designed Prabhu. N</p>
+</div>
+</div>
+</footer>
+  <a href="https://wa.me/+917092561020?text=Hi!%20I%20have%20a%20question." class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-whatsapp whatsapp-icon"></i>
+</a>
+ 
+</body></html>
+
+<script>
+
+// Where you want to render the map.
+var element = document.getElementById('osm-map');
+
+// Height has to be set. You can do this in CSS too.
+element.style = 'height:300px;';
+
+// Create Leaflet map on map element.
+var map = L.map(element);
+
+// Add OSM tile layer to the Leaflet map.
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Target's GPS coordinates.
+var target = L.latLng('11.132049', '77.341207');
+
+// Set map's center to target with zoom 14.
+map.setView(target, 10);
+
+// Place a marker on the same location.
+L.marker(target).addTo(map);
+</script>
